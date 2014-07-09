@@ -1,0 +1,7 @@
+name: To be free as in freedom
+markdown: redcarpet
+pygments: true
+github: [Repository metadata]
+safe: true
+lsi: false
+timezone: Asian/Shanghai
