@@ -61,7 +61,7 @@ astapor 的 README 文件写的比较清楚，主要的步骤如下：
                   foreman-installer ruby193-rubygem-foreman_simplify \
                   mysql-server augeas
 
-不过 foreman 安装过程会有不少包不再 foreman 自己的 YUM 仓库，也不在 CentOS 和 EPEL 的仓库里面，需要从 SCL 软件集获取，这些包目录可以从下面的网站获取：
+不过 foreman 安装过程会有不少包不在 foreman 自己的 YUM 仓库，也不在 CentOS 和 EPEL 的仓库里面，需要从 SCL 软件集获取，这些包目录可以从下面的网站获取：
 
 [https://www.softwarecollections.org](https://www.softwarecollections.org)
 
@@ -91,7 +91,7 @@ astapor 的 README 文件写的比较清楚，主要的步骤如下：
 对于 CentOS 7 来说就没有什么意义了，直接可以去掉。
 
 #### 3、禁止自动添加外部 YUM 仓库
-`foreman-installer` 默认会自动添加 EPEL 和 SCL 的 YUM 仓库，不过有些问题在获取 repodata 可能会出错，导致 `foreman_server.sh` 无法完成，因此在 `foreman_server.sh` 生成 `install.pp` 的地方加上 2 行配置：
+`foreman-installer` 默认会自动添加 EPEL 和 SCL 的 YUM 仓库，不过在获取 repodata 可能会出错，导致 `foreman_server.sh` 无法完成，因此在 `foreman_server.sh` 生成 `install.pp` 的地方加上 2 行配置：
 
 将
 
@@ -147,7 +147,7 @@ seeds.rb 中包含了在 foreman 的数据库初始化和 astapor 提供的 pupp
     end
 
 #### 5、完善 foreman-installer 中对系供 release 版本的检测
-foreman-installer 中对于 CentOS 等 RHEL 克隆发行版的检测还是不太，比如
+foreman-installer 中对于 CentOS 等 RHEL 克隆发行版的检测还是不太完善，比如
 
 /usr/share/foreman-installer/modules/mysql/manifests/params.pp，需要将：
 
@@ -169,11 +169,11 @@ foreman-installer 中对于 CentOS 等 RHEL 克隆发行版的检测还是不太
         }
     }
 
-其他的模块，需要碰到问题，也来进行类似修改。
+其他的模块，碰到类似问题的话，也需要进行修改。
 
 
 #### 6、执行 foreman_server.sh
-astapor 提供了 quickstack （ 部署 OpenStack 平台的 puppet 模块），其路径最后会写入到 puppet 的系统配置中，因此建议把 git clone 下来的代码放到比较固定不容易干扰的目录，比如：
+astapor 提供了 quickstack （ 部署 OpenStack 平台的 puppet 模块），其路径最后会写入到 puppet 的系统配置中，因此建议把 git clone 下来的代码放到比较固定、不容易干扰的目录，比如：
 
     # mv astapor /usr/share/openstack-foreman-installer
 
@@ -186,12 +186,12 @@ astapor 提供了 quickstack （ 部署 OpenStack 平台的 puppet 模块），�
     # hostnamectl set-hostname foreman.zhaochao.eayunstack.eayun.com
     # echo "xxx.xxx.xxx.xxx foreman.zhaochao.eayunstack.eayun.com" >> /etc/hosts
 
-最后，执行 foreman_server.sh 时，需要为 FOREMAN_GATEWAY 环境变量赋值（指定 foreman 服务器的 IP 地址即可）：
+最后，执行 foreman_server.sh 时，需要为 FOREMAN_GATEWAY 环境变量赋值（指定 foreman 服务器的 IP 地址即可，脚本会检测系统的网络配置，并且使用非默认路由对应的网卡给后续的 privison 使用，因此 FOREMAN_GATEWAY 可以使用前期配置好的内部 IP 地址）：
 
     # FOREMAN_GATEWAY=xxx.xxx.xxx.xxx ./foreman_server.sh
 
 #### 7、foreman_proxy 注册不成功
-`foreman_server.sh` 脚本如果由于前期配置和环境准备不完善，可能会碰到一些问题，比如
+`foreman_server.sh` 脚本如果由于前期配置和环境准备不完善，多次执行之后仍然可能会碰到一些问题，比如
 
     Info: Class[Foreman_proxy::Register]: Scheduling refresh of Foreman_smartproxy[foreman.zhaochao.eayunstack.eayun.com]
     E, [2014-09-26T18:04:53.419648 #26850] ERROR -- : 404 Resource Not Found
@@ -228,7 +228,7 @@ astapor 提供了 quickstack （ 部署 OpenStack 平台的 puppet 模块），�
 #### 10、对裸机进行部署
 foreman 安装完整之后，PXE 、DHCPD 、 TFTPD 等服务已经配置好了，需要做的事情比较简单，准备安装界面和 pxelinux 配置文件。
 
-不过 RHEL OpenStack Platform Installer 中提到 bare metal provision 则是使用了 `foreman_discovery` 插件，仍然是基于上述几个服务，但是在 foreman 界面上多了类似“主机扫描”的页面，而且对于 PXE 提供的安装介质有一定的要求，需要 initrd 中 `foreman_discovery` 提供的脚本向 foreman 服务器提交注册请求。
+不过 RHEL OpenStack Platform Installer 中提到 bare metal provision 则是使用了 `foreman_discovery` 插件，仍然是基于上述几个服务，但是在 foreman 界面上多了类似“主机扫描”的页面，而且对于 PXE 提供的安装介质有一定的要求，需要在 initrd 中使用 `foreman_discovery` 提供的脚本向 foreman 服务器提交注册请求。
 
 
 ### 写这篇博客的过程中，搜到的一些 slide ：
