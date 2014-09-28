@@ -146,7 +146,7 @@ seeds.rb 中包含了在 foreman 的数据库初始化和 astapor 提供的 pupp
     +  secondary_prefix=t_network.split('.')[0..2].join('.')
     end
 
-#### 5、完善 foreman-installer 中对系供 release 版本的检测
+#### 5、完善 foreman-installer 中对系统 release 版本的检测
 foreman-installer 中对于 CentOS 等 RHEL 克隆发行版的检测还是不太完善，比如
 
 /usr/share/foreman-installer/modules/mysql/manifests/params.pp，需要将：
