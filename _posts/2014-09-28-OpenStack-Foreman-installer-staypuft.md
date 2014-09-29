@@ -16,16 +16,16 @@ tags: OpenStack Foreman
 
     _这个是 RedHat 的演示文档，不得不说他们的文档做得不错，产品本身先不说，光看演示文档就比较能吸引和打动目标客户。。。_
 
-staypuft 是 foreman 自行维护的插件，但是目前没有 for el7 的 rpm 安装包，不过安装不会太麻烦：
+staypuft 是 foreman 自行维护的插件，但是目前没有 for el7 的 rpm 安装包，不过安装也不是太麻烦，有 3 种选择：
 
 1. [Foreman pakcaging](https://github.com/theforeman/foreman-packaging)，提供了打包所需要的东西，可以自行打包；
 2. [foreman-installer-staypuft](https://github.com/theforeman/foreman-installer-staypuft)，这个应该是社区比较推荐的方式，可以处理好一些数据初始化相关的工作；
 3. 使用 gem 安装。
 
-由于目前主要目的是简单测试和体验一下 starpuft，因此直接使用 gem 安装。这种方式安装不是比较方便，安装过程出现文档的可能性比较大。下面是这次测试的一些记录：
+由于目前主要目的是简单测试和体验一下 starpuft，因此直接使用 gem 安装。这种方式不太方便，安装过程出现问题的可能性比较大。下面是这次测试的一些记录：
 
-#### 1、安装（依赖和 staybuf 本身）
-具体的依赖没有仔细研究，不过使用 gem 安装 starpuft 时有依赖的 gem 包需要对 c 和 c++ 代码进行编译，因此首先需要保证系统具备开发编译环境。
+#### 1、安装（依赖和 staypuft 本身）
+具体的依赖没有仔细研究，不过使用 gem 安装 staypuft 时有依赖的 gem 包需要对 c 和 c++ 代码进行编译，因此首先需要保证系统具备开发编译环境。
 
     # yum install gcc gcc-c++ glibc-headers libxml2-devel zlib-devel \
                   ruby193-ruby-devel ruby193-rubygems-devel \
@@ -34,7 +34,7 @@ staypuft 是 foreman 自行维护的插件，但是目前没有 for el7 的 rpm 
     # scl enable ruby193 'gem install staypuft'
 
 ### 2、配置 foreman
-首先配置 foreman 调用 starpuft，使用的方法是在 foreman 目录下的 bundler.d 增加配置文件：
+首先配置 foreman 调用 staypuft，使用的方法是在 foreman 目录下的 bundler.d 增加配置文件：
 
 /usr/share/foreman/bundler.d/staypuft.rb
 
@@ -75,7 +75,7 @@ staypuft 是 foreman 自行维护的插件，但是目前没有 for el7 的 rpm 
 
     require {
                 type passenger_t;
-                        class process execmem;
+                class process execmem;
     }
 
     #============= passenger_t ==============
