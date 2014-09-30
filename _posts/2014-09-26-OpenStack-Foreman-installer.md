@@ -234,4 +234,4 @@ foreman 安装完整之后，PXE 、DHCPD 、 TFTPD 等服务已经配置好了�
 ### 写这篇博客的过程中，搜到的一些 slide ：
 
 * [http://www.slideshare.net/domcleal/cfgmgmt-2014-rdo](http://www.slideshare.net/domcleal/cfgmgmt-2014-rdo)
-* [http://rhsummit.files.wordpress.com/2014/04/summit2014_scale_cloud_infra-20140416_wfoster_kambiz.pdf](http://rhsummit.files.wordpress.com/2014/04/summit2014_scale_cloud_infra-20140416_wfoster_kambiz.pdf)
+* [http://rhsummit.files.wordpress.com/2014/04/summit2014\_scale\_cloud\_infra-20140416\_wfoster\_kambiz.pdf](http://rhsummit.files.wordpress.com/2014/04/summit2014_scale_cloud_infra-20140416_wfoster_kambiz.pdf)
