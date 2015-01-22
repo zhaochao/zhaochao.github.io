@@ -6,3 +6,4 @@ safe: true
 lsi: false
 timezone: Asia/Shanghai
 permalink: /:year-:month-:day-:title.html
+paginate: 7
