@@ -117,7 +117,7 @@ foreman-discovery 是 foreman 用于实现主机发现的插件，可以使 fore
 
 _这里可以把 /etc/puppet/autosign.conf 也修改一下，参见后文 **“遇到的其它问题”**；_
 
-点击 “Architecture” --> “Provisioning Setup” ，然后根据向导创建新的 Provision 。
+点击 “Infrastructure” --> “Provisioning Setup” ，然后根据向导创建新的 Provision 。
 
 一个比较容易出现的问题是，dhcpd 服务启动不成功，原因是我的 foreman OS provision 网络会对应 OpenStack 的管理网络，不会设置网关，所以 dhcpd.conf 里面的 “option routers” 配置项没有具体的值，删除这一行，重启 dhcpd 就行。
 
@@ -203,7 +203,7 @@ _检查 Staypuft 数据是否初始化成功，可以参考后文 **“遇到的
 
 * 首先，在 foreman 界面上，点击 “Administer” --> “Setting” --> “StayPuftProvioning” ，将 `base_hostgroup` 设置为前面创建 `Provision` 时自动生成的 `hostgroup` ；
 
-* 在 “Architecture” --> “Subnets” 页面中为 OpenStack 创建必要的网络；我测试时，OS provison 对应的网络是 OpenStack 管理网络，还需要建立外部网络和租户网络；
+* 在 “Infrastructure” --> “Subnets” 页面中为 OpenStack 创建必要的网络；我测试时，OS provison 对应的网络是 OpenStack 管理网络，还需要建立外部网络和租户网络；
 
 * 点击 “OpenStack Installer” --> “New deployment” ，按装向导创建新的 Staypuft 布署方案；
 
