@@ -152,6 +152,10 @@ _这里可以把 /etc/puppet/autosign.conf 也修改一下，参见后文 **“�
 
 _检查 Staypuft 数据是否初始化成功，可以参考后文 **“遇到的其它问题”**；_
 
+重启 Foreman ：
+
+    # systemctl restart httpd
+
 #### 8、配置 foreman-tasks
 
     # cp /opt/rh/ruby193/root/usr/local/share/gems/gems/foreman-tasks-x.x.x/deploy/foreman-tasks.sysconfig /etc/sysconfig/foreman-tasks
