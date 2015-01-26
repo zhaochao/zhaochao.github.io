@@ -157,6 +157,14 @@ _检查 Staypuft 数据是否初始化成功，可以参考后文 **“遇到的
     # cp /opt/rh/ruby193/root/usr/local/share/gems/gems/foreman-tasks-x.x.x/deploy/foreman-tasks.sysconfig /etc/sysconfig/foreman-tasks
     # cp /opt/rh/ruby193/root/usr/local/share/gems/gems/foreman-tasks-x.x.x/deploy/foreman-tasks.service /usr/lib/systemd/system/
     # cp /opt/rh/ruby193/root/usr/local/share/gems/gems/foreman-tasks-x.x.x/bin/foreman-tasks /usr/bin/
+
+编辑 /usr/lib/systemd/system/foreman-tasks.service ，在 ExecStart 和 ExecStop 的命令中加上 scl 前缀，即
+
+    ExecStart=/usr/bin/scl enable ruby193 v8314 '/usr/bin/foreman-tasks start' 
+    ExecStop=/usr/bin/scl enable ruby193 v8314 '/usr/bin/foreman-tasks stop'
+
+然后执行：
+
     # systemctl daemon-reload
 
 手动测试 foreman-tasks 能否启动：
